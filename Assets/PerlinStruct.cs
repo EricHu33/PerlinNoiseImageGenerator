@@ -1,27 +1,15 @@
-//
-// Perlin noise generator for Unity
-// Keijiro Takahashi, 2013, 2015
-// https://github.com/keijiro/PerlinNoise
-//
-// Based on the original implementation by Ken Perlin
-// http://mrl.nyu.edu/~perlin/noise/
-//
-using Unity.Collections;
-using UnityEngine;
-
-public static class Perlin
+/*using Unity.Mathematics;
+public struct PerlinStruct
 {
-    #region Noise functions
-
-    public static float Noise(float x)
+    public float Noise(float x)
     {
-        var X = Mathf.FloorToInt(x) & 0xff;
+        var X = math.FloorToInt(x) & 0xff;
         x -= Mathf.Floor(x);
         var u = Fade(x);
         return Lerp(u, Grad(perm[X], x), Grad(perm[X + 1], x - 1)) * 2;
     }
 
-    public static float Noise(float x, float y)
+    public float Noise(float x, float y)
     {
         var X = Mathf.FloorToInt(x) & 0xff;
         var Y = Mathf.FloorToInt(y) & 0xff;
@@ -35,12 +23,12 @@ public static class Perlin
                        Lerp(u, Grad(perm[A + 1], x, y - 1), Grad(perm[B + 1], x - 1, y - 1)));
     }
 
-    public static float Noise(Vector2 coord)
+    public float Noise(float2 coord)
     {
         return Noise(coord.x, coord.y);
     }
 
-    public static float Noise(float x, float y, float z)
+    public float Noise(float x, float y, float z)
     {
         var X = Mathf.FloorToInt(x) & 0xff;
         var Y = Mathf.FloorToInt(y) & 0xff;
@@ -63,16 +51,13 @@ public static class Perlin
                                Lerp(u, Grad(perm[AB + 1], x, y - 1, z - 1), Grad(perm[BB + 1], x - 1, y - 1, z - 1))));
     }
 
-    public static float Noise(Vector3 coord)
+    public float Noise(float3 coord)
     {
         return Noise(coord.x, coord.y, coord.z);
     }
 
-    #endregion
 
-    #region fBm functions
-
-    public static float Fbm(float x, int octave)
+    public float Fbm(float x, int octave)
     {
         var f = 0.0f;
         var w = 0.5f;
@@ -85,7 +70,7 @@ public static class Perlin
         return f;
     }
 
-    public static float Fbm(Vector2 coord, int octave)
+    public float Fbm(float2 coord, int octave)
     {
         var f = 0.0f;
         var w = 0.5f;
@@ -98,12 +83,12 @@ public static class Perlin
         return f;
     }
 
-    public static float Fbm(float x, float y, int octave)
+    public float Fbm(float x, float y, int octave)
     {
-        return Fbm(new Vector2(x, y), octave);
+        return Fbm(new float2(x, y), octave);
     }
 
-    public static float Fbm(Vector3 coord, int octave)
+    public float Fbm(float3 coord, int octave)
     {
         var f = 0.0f;
         var w = 0.5f;
@@ -116,36 +101,32 @@ public static class Perlin
         return f;
     }
 
-    public static float Fbm(float x, float y, float z, int octave)
+    public float Fbm(float x, float y, float z, int octave)
     {
-        return Fbm(new Vector3(x, y, z), octave);
+        return Fbm(new float(x, y, z), octave);
     }
 
-    #endregion
-
-    #region Private functions
-
-    static float Fade(float t)
+    float Fade(float t)
     {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
 
-    static float Lerp(float t, float a, float b)
+    float Lerp(float t, float a, float b)
     {
         return a + t * (b - a);
     }
 
-    static float Grad(int hash, float x)
+    float Grad(int hash, float x)
     {
         return (hash & 1) == 0 ? x : -x;
     }
 
-    static float Grad(int hash, float x, float y)
+    float Grad(int hash, float x, float y)
     {
         return ((hash & 1) == 0 ? x : -x) + ((hash & 2) == 0 ? y : -y);
     }
 
-    static float Grad(int hash, float x, float y, float z)
+    float Grad(int hash, float x, float y, float z)
     {
         var h = hash & 15;
         var u = h < 8 ? x : y;
@@ -153,8 +134,10 @@ public static class Perlin
         return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
     }
 
+    ManagedObjectRef<int[]> perm;
+}
 
-    public readonly static int[] perm = {
+/*int[] perm = {
         151,160,137,91,90,15,
         131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,
         190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,
@@ -169,7 +152,15 @@ public static class Perlin
         49,192,214, 31,181,199,106,157,184, 84,204,176,115,121,50,45,127, 4,150,254,
         138,236,205,93,222,114,67,29,24,72,243,141,128,195,78,66,215,61,156,180,
         151
-    };
+    };*/
+/*
+public struct ManagedObjectRef<T>
+    where T : class
+{
+    public readonly int Id;
 
-    #endregion
-}
+    public ManagedObjectRef(int id)
+    {
+        Id = id;
+    }
+}*/
