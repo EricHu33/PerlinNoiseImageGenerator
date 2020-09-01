@@ -18,7 +18,7 @@ Without using job system(single thread, 10fps)
 ---
 <img width="696" alt="Screen Shot 2020-06-05 at 9 49 49 PM" src="https://user-images.githubusercontent.com/13420668/83883774-85bda800-a776-11ea-9c7c-775dde3e8f83.png">
 
-Without job system(burst compiled, multithread, 90+fps)
+With job system(burst compiled, multithread, 90+fps)
 ---
 <img width="684" alt="Screen Shot 2020-06-05 at 9 49 42 PM" src="https://user-images.githubusercontent.com/13420668/83883755-80f8f400-a776-11ea-801a-99bd721407ec.png">
 
